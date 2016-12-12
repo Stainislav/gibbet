@@ -1,0 +1,97 @@
+'''#!/usr/bin/env python3
+
+import random
+import turtle
+import sys
+
+# PEP8
+
+# функция поднимает курсор и переносит его в заданное место
+def gotoxy(x, y):
+    turtle.penup()
+    turtle.goto(x, y)
+    turtle.pendown()
+
+# функция рисует прямую линию по заданным точкам
+def draw_line(from_x, from_y, to_x, to_y):
+    gotoxy(from_x, from_y)
+    turtle.goto(to_x, to_y)
+
+# случайным образом определим число, которое будет угадывать пользователь 
+# x = random.randint(1, 100)
+x = 5
+
+# список для координат
+coord_list = []
+
+coord = open('coordinat.txt')
+
+# преобразуем список со строками в список с числами, уберём перевод на следующую строку
+for line in coord:
+    line = line.strip().split(',')
+    nums = []
+    for n in line:
+        nums.append(int(n))
+        
+    coord_list.append(nums)
+
+print(coord_list)
+
+# нарисуем виселицу
+draw_line(*coord_list[0])
+draw_line(*coord_list[1])
+draw_line(*coord_list[2])
+draw_line(*coord_list[3])
+
+
+
+gotoxy(-100,0)
+turtle.circle(20)
+
+draw_line(*coord_list[4])
+draw_line(*coord_list[5])
+draw_line(*coord_list[6])
+draw_line(*coord_list[7])
+draw_line(*coord_list[8])
+draw_line(*coord_list[9])
+
+# спросим у пользователя, хочет ли он играть
+answer = turtle.textinput("Играть?", "y/n")
+
+# если пользователь не хочет играть, выходим из программы
+if answer == 'n':
+    sys.exit()   
+
+# кол-во предоставлямых пользователю ошибочных попыток
+try_count = 0
+ 
+# запускаем бесконечный цикл игры
+while True:
+    number = turtle.numinput("Угадайте","Число", 0, 0 , 100)
+  
+    # если пользователь угадал число, поздравляем его
+    if number == x:
+        turtle.color('green')
+        gotoxy(-150, 200)
+        turtle.write("Ура! Вы победили!", 
+               font=("Arial", 28, "normal"))
+        break
+
+    # если пользователь не угадал число за 10 попыток, сообщаем ему, что он проиграл
+    else:
+        turtle.color('red')
+        turtle.write("Неверно!",
+                font=("Arial", 28, "normal"))
+
+        try_count += 1
+
+        if try_count == 10:
+               gotoxy(-20, 230)
+               turtle.write("Вы проиграли!",
+                font=("Arial", 44, "normal"))
+               break
+ 
+# ставим input, чтобы окно графического приложения не закрывалось
+input('Нажмите любую клавишу...')
+
+'''
